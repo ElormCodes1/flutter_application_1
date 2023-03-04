@@ -16,13 +16,9 @@ class Dashboard extends StatelessWidget {
           centerTitle: true,
           backgroundColor: Colors.blueGrey[900],
         ),
-        body: Center(
-          child: IconButton(
-            icon: Icon(FontAwesomeIcons.bagShopping),
-            onPressed: () {},
-            iconSize: 50,
-            color: Colors.brown,
-          ),
+        body: Text(
+          "Hello world",
+          style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
         ));
   }
 }
