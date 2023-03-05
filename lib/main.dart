@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screens/Dashboard.dart';
-
+import 'questions.dart';
 //main function, starting point for the flutter app
 void main() => runApp(myApp());
 class myApp extends StatelessWidget {
@@ -31,11 +30,12 @@ class QuizPage extends StatefulWidget {
 
 class _myAppState extends State<QuizPage> {
   int questionNumber = 0;
-  List<String> questions = [
-    'You can lead a cow down stairs but not up stairs.',
-    'Approximately one quarter of human bones are in the feet.',
-    'A slug\'s blood is green.'
+  List<Question> questionBank = [
+  Question(q: 'You can lead a cow down stairs but not up stairs.', a: false),
+  Question(q: 'Approximately one quarter of human bones are in the feet.', a: true),
+  Question(q: 'A slug\'s blood is green.', a: true)
   ];
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -45,7 +45,7 @@ class _myAppState extends State<QuizPage> {
         Expanded(
           flex: 5,
           child: Center(
-            child: Text(questions[questionNumber],
+            child: Text(questionBank[questionNumber].questionText,
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.white,
@@ -61,6 +61,12 @@ class _myAppState extends State<QuizPage> {
                 backgroundColor: MaterialStateProperty.all(Colors.green),
               ),
               onPressed: () {
+                bool correctAnswer = questionBank[questionNumber].questionAnswer;
+                if(correctAnswer == true){
+                  print('User got it right!');
+                }else{
+                  print('User got it wrong');
+                }
                 setState(() {
                   questionNumber++;
                 });
@@ -80,6 +86,15 @@ class _myAppState extends State<QuizPage> {
                 backgroundColor: MaterialStateProperty.all(Colors.red),
               ),
               onPressed: () {
+                bool correctAnswer = questionBank[questionNumber].questionAnswer;
+                if(correctAnswer == true){
+                  print('User got it right!');
+                }else{
+                  print('User got it wrong');
+                }
+                setState(() {
+                  questionNumber++;
+                });
                 setState(() {
                   questionNumber++;
                 });
