@@ -1,9 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'questions.dart';
+
 //main function, starting point for the flutter app
-void main() => runApp(myApp());
-class myApp extends StatelessWidget {
-  const myApp({Key? key}) : super(key: key);
+void main() => runApp(const MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,30 +15,37 @@ class myApp extends StatelessWidget {
       home: Scaffold(
         backgroundColor: Colors.grey.shade900,
         body: const SafeArea(
-          child: Padding(padding: EdgeInsets.symmetric(horizontal: 10.0),
-          child: QuizPage(),),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.0),
+            child: QuizPage(),
+          ),
         ),
       ),
     );
   }
 }
 
-
-
 class QuizPage extends StatefulWidget {
   const QuizPage({Key? key}) : super(key: key);
 
   @override
-  State<QuizPage> createState() => _myAppState();
+  State<QuizPage> createState() => _MyAppState();
 }
 
-class _myAppState extends State<QuizPage> {
+class _MyAppState extends State<QuizPage> {
   int questionNumber = 0;
   List<Question> questionBank = [
-  Question(q: 'You can lead a cow down stairs but not up stairs.', a: false),
-  Question(q: 'Approximately one quarter of human bones are in the feet.', a: true),
-  Question(q: 'A slug\'s blood is green.', a: true)
+    Question(
+        questionText: 'You can lead a cow down stairs but not up stairs.',
+        questionAnswer: false),
+    Question(
+        questionText:
+            'Approximately one quarter of human bones are in the feet.',
+        questionAnswer: true),
+    Question(questionText: 'A slug\'s blood is green.', questionAnswer: true)
   ];
+
+  bool something = false;
 
   @override
   Widget build(BuildContext context) {
@@ -45,33 +56,36 @@ class _myAppState extends State<QuizPage> {
         Expanded(
           flex: 5,
           child: Center(
-            child: Text(questionBank[questionNumber].questionText,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 25.0,
-            ),),
+            child: Text(
+              questionBank[questionNumber].questionText ?? "",
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 25.0,
+              ),
+            ),
           ),
         ),
         Expanded(
           child: Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: TextButton(
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.green),
               ),
               onPressed: () {
-                bool correctAnswer = questionBank[questionNumber].questionAnswer;
-                if(correctAnswer == true){
-                  print('User got it right!');
-                }else{
-                  print('User got it wrong');
+                bool correctAnswer =
+                    questionBank[questionNumber].questionAnswer ?? false;
+                if (correctAnswer == true) {
+                  log('User got it right!');
+                } else {
+                  log('User got it wrong');
                 }
                 setState(() {
                   questionNumber++;
                 });
               },
-              child: Text(
+              child: const Text(
                 "True",
                 style: TextStyle(color: Colors.white),
               ),
@@ -80,17 +94,18 @@ class _myAppState extends State<QuizPage> {
         ),
         Expanded(
           child: Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: TextButton(
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.red),
               ),
               onPressed: () {
-                bool correctAnswer = questionBank[questionNumber].questionAnswer;
-                if(correctAnswer == true){
-                  print('User got it right!');
-                }else{
-                  print('User got it wrong');
+                bool correctAnswer =
+                    questionBank[questionNumber].questionAnswer ?? false;
+                if (correctAnswer == true) {
+                  log('User got it right!');
+                } else {
+                  log('User got it wrong');
                 }
                 setState(() {
                   questionNumber++;
@@ -100,17 +115,14 @@ class _myAppState extends State<QuizPage> {
                 });
               },
               child: Text(
-                "False",
-                style: TextStyle(color: Colors.white),
+                something.toString(),
+                style: const TextStyle(color: Colors.white),
               ),
             ),
           ),
         ),
-        Row(
-
-        )
+        Row()
       ],
     );
   }
 }
-
